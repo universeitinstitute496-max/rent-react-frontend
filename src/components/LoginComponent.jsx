@@ -7,7 +7,7 @@ const LoginComponent = () => {
                 {/* Login Form (Visible before login) */}
                 <div
                     id="loginForm"
-                    className="max-w-md mx-auto bg-white rounded-lg shadow-md p-6 mt-10 mb-10"
+                    className="max-w-md mx-auto bg-white rounded-lg shadow-xl/30 p-6 mt-10 mb-10"
                 >
                     <h2 className="text-3xl font-bold text-center mb-6">Login</h2>
                     <form>
@@ -45,7 +45,7 @@ const LoginComponent = () => {
                     </form>
                     <p className="text-center mt-4">
                         If you don't have an account?{" "}
-                        <Link to="/registration/" className="text-blue-500 hover:underline">
+                        <Link to="/register/" className="text-blue-500 hover:underline">
                             Register
                         </Link>
                     </p>
