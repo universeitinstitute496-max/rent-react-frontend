@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router';
 
 const Navbar = () => {
@@ -13,7 +12,7 @@ const Navbar = () => {
                 
                 <div className="flex items-center space-x-4">
                     <Link to="/login/" id="loginBtn" className="bg-white text-blue-600 px-4 py-1 rounded-lg font-semibold hover:bg-blue-100">Login</Link>
-                    <Link to="registration.html" id="registerBtn" className="bg-green-500 text-white px-4 py-1 rounded-lg font-semibold hover:bg-green-600">Register</Link>
+                    <Link to="/register/" id="registerBtn" className="outline-2 outline-offset-2 outline-white-500 text-white px-4 py-1 rounded-lg font-semibold">Register</Link>
                     <button className="md:hidden" id="menu-toggle">
                         <i className="fas fa-bars text-xl"></i>
                     </button>
