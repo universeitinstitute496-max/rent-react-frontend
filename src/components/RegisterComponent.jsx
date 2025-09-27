@@ -8,7 +8,7 @@ const RegisterComponent = () => {
                 {/* Logo */}
                 <div className="flex flex-col items-center mb-6">
                     <img src="#" alt="Logo" className="h-14 w-14 mb-2" />
-                    <h1 className="text-xl font-bold text-gray-800">Bari wala</h1>
+                    <h1 className="text-xl font-bold text-gray-800">House Rent Management System</h1>
                     <p className="text-sm text-gray-500">Create your account</p>
                 </div>
                 {/* Registration Form */}
