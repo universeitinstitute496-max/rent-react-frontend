@@ -22,13 +22,13 @@ const Navbar = () => {
             About Us
           </Link>
           <Link
-            to="/subscription/"
+            to="/subscription"
             className="text-white font-semibold hover:underline"
           >
             Subscription
           </Link>
           <Link
-            to="/login/"
+            to="/login"
             className="bg-white text-blue-600 px-4 py-1 rounded-lg font-semibold hover:bg-blue-100"
           >
             Login
