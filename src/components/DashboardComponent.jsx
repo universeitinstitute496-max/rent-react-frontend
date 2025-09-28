@@ -23,7 +23,7 @@ const DashboardComponent = () => {
         <DashboardMenu isOpen={isOpen} />
 
         {/* Main Content */}
-        <div className="w-full md:w-3/4">
+        <div className="w-full ">
           {/* Summary Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <div className="bg-white rounded-lg shadow-md p-4 text-center">
