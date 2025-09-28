@@ -14,6 +14,7 @@ import EditProfile from "./pages/EditProfile"
 import ForgotPassword from "./pages/ForgotPassword"
 import VerifyOtp from "./pages/VerifyOtp"
 import ResetPassword from "./pages/ResetPassword"
+import NotFoundPage from "./pages/NotFoundPage"
 const App = () => {
   return (
     <>
@@ -31,7 +32,7 @@ const App = () => {
           <Route path="create-flat-user" element={<CreateFlatUser />} />
           <Route path="profile" element={<Profile />} />
           <Route path="edit-profile" element={<EditProfile />} />
-          <Route path="*" element={<h1 className="text-3xl font-bold">404 Not Found</h1>} />
+          <Route path="*" element={<NotFoundPage />} />
           <Route path="forgot-password" element={<ForgotPassword />} />
           <Route path="verify-otp" element={<VerifyOtp />} />
           <Route path="reset-password" element={<ResetPassword />} />
