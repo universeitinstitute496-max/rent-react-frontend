@@ -28,12 +28,12 @@ const LoginComponent = () => {
                             />
                         </div>
                         <p className="text-right mt-4 mb-4">
-                            <a
-                                href="forgot_password.html"
+                            <Link
+                                to="/forgot-password/"
                                 className="text-blue-500 hover:underline"
                             >
                                 Forgot password?
-                            </a>
+                            </Link>
                         </p>
                         <button
                             type="button"

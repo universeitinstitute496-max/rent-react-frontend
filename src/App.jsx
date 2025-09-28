@@ -9,6 +9,11 @@ import AddHouse from "./pages/AddHouse"
 import RentCollection from "./pages/RentCollection"
 import AddFlat from "./pages/AddFlat"
 import CreateFlatUser from "./pages/CreateFlatUser"
+import Profile from "./pages/Profile"
+import EditProfile from "./pages/EditProfile"
+import ForgotPassword from "./pages/ForgotPassword"
+import VerifyOtp from "./pages/VerifyOtp"
+import ResetPassword from "./pages/ResetPassword"
 const App = () => {
   return (
     <>
@@ -24,6 +29,12 @@ const App = () => {
           <Route path="rent-collection" element={<RentCollection />} />
           <Route path="add-flat" element={<AddFlat />} />
           <Route path="create-flat-user" element={<CreateFlatUser />} />
+          <Route path="profile" element={<Profile />} />
+          <Route path="edit-profile" element={<EditProfile />} />
+          <Route path="*" element={<h1 className="text-3xl font-bold">404 Not Found</h1>} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="verify-otp" element={<VerifyOtp />} />
+          <Route path="reset-password" element={<ResetPassword />} />
           
         </Route>
       </Routes>
