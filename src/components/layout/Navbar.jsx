@@ -18,9 +18,14 @@ const Navbar = () => {
           <Link to="/" className="text-white font-semibold hover:underline">
             Home
           </Link>
-          <Link to="/about" className="text-white font-semibold hover:underline">
+          <Link to="/about-us/" className="text-white font-semibold hover:underline">
             About Us
           </Link>
+
+          <Link to="/contact-us/" className="text-white font-semibold hover:underline">
+            Contact Us
+          </Link>
+          
           <Link
             to="/subscription/"
             className="text-white font-semibold hover:underline"
@@ -69,11 +74,18 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            to="/about"
+            to="/about-us/"
             className="block text-white font-semibold"
             onClick={() => setIsOpen(false)}
           >
             About Us
+          </Link>
+          <Link
+            to="/contact-us/"
+            className="block text-white font-semibold"
+            onClick={() => setIsOpen(false)}
+          >
+            Contact Us
           </Link>
           <Link
             to="/subscription/"

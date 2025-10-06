@@ -16,6 +16,8 @@ import VerifyOtp from "./pages/VerifyOtp"
 import ResetPassword from "./pages/ResetPassword"
 import NotFoundPage from "./pages/NotFoundPage"
 import OwnerRegistration from "./pages/OwnerRegistration"
+import AboutUs from "./pages/AboutUs"
+import ContactUs from "./pages/ContactUs"
 const App = () => {
   return (
     <>
@@ -39,6 +41,9 @@ const App = () => {
           <Route path="reset-password" element={<ResetPassword />} />
 
           <Route path="owner-registration" element={<OwnerRegistration />} />
+
+          <Route path="about-us" element={<AboutUs />} />
+        <Route path="contact-us" element={<ContactUs />} />
           
         </Route>
       </Routes>
