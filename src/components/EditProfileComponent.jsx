@@ -1,8 +1,29 @@
-import React from 'react'
+import React, { useState } from "react";
+import DashboardMenu from "./DashboardMenu";
+
 
 const EditProfileComponent = () => {
+    const [isOpen, setIsOpen] = useState(false);
     return (
         <>
+
+        <main className="container mx-auto px-4 py-8">
+                <div className="flex flex-col md:flex-row gap-6">
+                    {/* Navigation */}
+
+
+                    {/* Mobile Menu Button */}
+                    <div className="md:hidden flex justify-end mb-4 fixed top-100 right-4 z-50">
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="p-2 bg-blue-500 text-white rounded-lg"
+                        >
+                            <i className="fa-solid fa-bars"><span className="ml-1.5 line">M E N U</span></i>
+                        </button>
+                    </div>
+
+                    {/* Sidebar */}
+                    <DashboardMenu isOpen={isOpen} />
             <section className="container mx-auto px-4 py-8">
                 <div className="bg-white rounded-lg shadow-md p-6 max-w-2xl mx-auto">
                     <h2 className="text-2xl font-bold mb-6 text-center">
@@ -99,7 +120,8 @@ const EditProfileComponent = () => {
                     </form>
                 </div>
             </section>
-
+            </div>
+        </main>
         </>
     )
 }

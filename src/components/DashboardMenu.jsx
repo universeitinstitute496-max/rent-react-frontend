@@ -34,6 +34,19 @@ const DashboardMenu = ({ isOpen }) => {
           </NavLink>
         </li>
 
+        {/* <li>
+          <NavLink
+            to="/owner-registration/"
+            className={({ isActive }) =>
+              isActive
+                ? "w-full text-left px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold block"
+                : "w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg block"
+            }
+          >
+            <i class="fa-solid fa-handshake"/> Apply for Owner  
+          </NavLink>
+        </li> */}
+
         <li>
           <NavLink
             to="/add-house/"

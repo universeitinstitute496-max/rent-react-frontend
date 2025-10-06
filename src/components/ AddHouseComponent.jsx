@@ -30,7 +30,7 @@ const AddHouseComponent = () => {
                                 <p>Fill in your house information correctly</p>
                             </div>
                             {/* Progress Steps */}
-                            <div className="px-6 py-4 border-b">
+                            {/* <div className="px-6 py-4 border-b">
                                 <div className="flex justify-between items-center">
                                     <div className="flex items-center text-blue-600">
                                         <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
@@ -53,7 +53,7 @@ const AddHouseComponent = () => {
                                         <span className="ml-2">Confirmation</span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                             {/* Form Content */}
                             <form className="px-6 py-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -75,7 +75,7 @@ const AddHouseComponent = () => {
                                             <label className="block text-gray-700 mb-2 font-medium">
                                                 Full Address <span className="text-red-500">*</span>
                                             </label>
-                                            <textarea
+                                            <textarea style={{ height: '147px' }}
                                                 placeholder="Enter full house address"
                                                 className="w-full px-4 py-3 border rounded-lg input-field focus:border-blue-500 h-24"
                                                 defaultValue={""}
@@ -84,13 +84,13 @@ const AddHouseComponent = () => {
                                         {/* Area */}
                                         <div className="mb-5">
                                             <label className="block text-gray-700 mb-2 font-medium">
-                                                Area <span className="text-red-500">*</span>
+                                                City <span className="text-red-500">*</span>
                                             </label>
                                             <select className="w-full px-4 py-3 border rounded-lg input-field focus:border-blue-500">
-                                                <option value="">Select Area</option>
-                                                <option value="Dhanmondi">Dhanmondi</option>
-                                                <option value="Gulshan">Gulshan</option>
-                                                <option value="Banani">Banani</option>
+                                                <option value="">Select City</option>
+                                                <option value="Dhaka">Dhaka</option>
+                                                <option value="CTG">CTG</option>
+                                                <option value="Khulna">Khulna</option>
                                                 <option value="Mirpur">Mirpur</option>
                                                 <option value="Uttara">Uttara</option>
                                                 <option value="Others">Other</option>
@@ -137,6 +137,20 @@ const AddHouseComponent = () => {
                                                 className="w-full px-4 py-3 border rounded-lg input-field focus:border-blue-500"
                                             />
                                         </div>
+                                        <div className="mb-5">
+                                            <label className="block text-gray-700 mb-2 font-medium">
+                                                Area <span className="text-red-500">*</span>
+                                            </label>
+                                            <select className="w-full px-4 py-3 border rounded-lg input-field focus:border-blue-500">
+                                                <option value="">Select Area</option>
+                                                <option value="Dhanmondi">Dhanmondi</option>
+                                                <option value="Gulshan">Gulshan</option>
+                                                <option value="Banani">Banani</option>
+                                                <option value="Mirpur">Mirpur</option>
+                                                <option value="Uttara">Uttara</option>
+                                                <option value="Others">Other</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 {/* Image Upload */}
@@ -167,149 +181,20 @@ const AddHouseComponent = () => {
                                     </div>
                                 </div>
                                 {/* Form Buttons */}
-                                <div className="mt-10 flex justify-between">
+                                <div className="mt-10 flex justify-end">
+                                    
                                     <button
-                                        type="button"
-                                        className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100"
-                                    >
-                                        <i className="fas fa-arrow-left mr-2" />
-                                        Previous
-                                    </button>
-                                    <button
-                                        type="button"
+                                        type="submit"
                                         onclick="nextPage()"
-                                        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
+                                        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 "
                                     >
-                                        Next Step <i className="fas fa-arrow-right ml-2" />
+                                        Submit <i className="fas fa-arrow-right ml-2" />
                                     </button>
                                 </div>
                             </form>
                         </div>
                     </div>
-                    {/* Step 2 */}
-                    <div className="w-full" id="step-2" style={{ display: "none" }}>
-                        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-                            <div className="bg-blue-600 text-white px-6 py-4">
-                                <h2 className="text-2xl font-bold">Add New House</h2>
-                                <p>Fill in your house information correctly</p>
-                            </div>
-                            <div className="px-6 py-4 border-b">
-                                <div className="flex justify-between items-center">
-                                    <div className="flex items-center text-blue-600">
-                                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                            1
-                                        </div>
-                                        <span className="ml-2">Basic Information</span>
-                                    </div>
-                                    <div className="h-1 w-1/4 bg-blue-500 mx-2" />
-                                    <div className="flex items-center text-blue-600">
-                                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center">
-                                            2
-                                        </div>
-                                        <span className="ml-2">Flat Information</span>
-                                    </div>
-                                    <div className="h-1 w-1/4 bg-gray-100 mx-2" />
-                                    <div className="flex items-center text-gray-400">
-                                        <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center">
-                                            3
-                                        </div>
-                                        <span className="ml-2">Confirmation</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <form className="px-6 py-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {/* Left Column */}
-                                    <div>
-                                        <div className="mb-5">
-                                            <label className="block text-gray-700 mb-2 font-medium">
-                                                Number of Flats <span className="text-red-500">*</span>
-                                            </label>
-                                            <input
-                                                type="number"
-                                                min={1}
-                                                id="flatShow"
-                                                placeholder="Total Flats"
-                                                className="w-full px-4 py-3 border rounded-lg input-field focus:border-blue-500"
-                                                disabled=""
-                                            />
-                                        </div>
-                                        <div className="mb-5">
-                                            <label className="block text-gray-700 mb-2 font-medium">
-                                                Total Floors <span className="text-red-500">*</span>
-                                            </label>
-                                            <input
-                                                type="number"
-                                                min={1}
-                                                id="floorShow"
-                                                placeholder="Total Floors"
-                                                className="w-full px-4 py-3 border rounded-lg input-field focus:border-blue-500"
-                                                disabled=""
-                                            />
-                                        </div>
-                                    </div>
-                                    {/* Right Column */}
-                                    <div className="mt-6 md:mt-0 flex gap-4 flex-wrap">
-                                        <div className="mb-5">
-                                            <div className="p-4 border rounded-lg bg-blue-100">
-                                                <h5 className="block text-gray-700 mb-2 font-medium">
-                                                    Flat-1
-                                                </h5>
-                                                <span>
-                                                    <i
-                                                        className="fa-solid fa-building text-blue-500"
-                                                        style={{ fontSize: 40 }}
-                                                    />
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="mb-5">
-                                            <div className="p-4 border rounded-lg bg-blue-100">
-                                                <h5 className="block text-gray-700 mb-2 font-medium">
-                                                    Flat-2
-                                                </h5>
-                                                <span>
-                                                    <i
-                                                        className="fa-solid fa-building text-blue-500"
-                                                        style={{ fontSize: 40 }}
-                                                    />
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div className="mb-5">
-                                            <div className="p-4 border rounded-lg bg-blue-100">
-                                                <h5 className="block text-gray-700 mb-2 font-medium">
-                                                    Flat-3
-                                                </h5>
-                                                <span>
-                                                    <i
-                                                        className="fa-solid fa-building text-blue-500"
-                                                        style={{ fontSize: 40 }}
-                                                    />
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="mt-10 flex justify-between">
-                                    <button
-                                        type="button"
-                                        onclick="prevPage()"
-                                        className="px-6 py-3 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-100"
-                                    >
-                                        <i className="fas fa-arrow-left mr-2" />
-                                        Previous
-                                    </button>
-                                    <button
-                                        type="button"
-                                        className="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700"
-                                    >
-                                        Next Step <i className="fas fa-arrow-right ml-2" />
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                    
                 </div>
             </main>
         </>

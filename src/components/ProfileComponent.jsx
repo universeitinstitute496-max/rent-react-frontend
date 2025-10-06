@@ -75,6 +75,14 @@ const ProfileComponent = () => {
                             </div>
                             {/* Action Buttons */}
                             <div className="mt-6 flex gap-4">
+                                
+                                <Link
+                                    to="/owner-registration/"
+                                    className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700"
+                                >
+                                    <i className="fa-solid fa-handshake" /> Apply for House Owner
+                                </Link>
+
                                 <Link
                                     to="/edit-profile/"
                                     className="bg-blue-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-blue-700"
