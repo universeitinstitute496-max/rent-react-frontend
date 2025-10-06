@@ -95,6 +95,13 @@ const Navbar = () => {
             Subscription
           </Link>
           <Link
+            to="/dashboard/"
+            className="block text-white font-semibold"
+            onClick={() => setIsOpen(false)}
+          >
+            Dashboard
+          </Link>
+          <Link
             to="/login/"
             className="block bg-white text-blue-600 px-4 py-1 rounded-lg font-semibold hover:bg-blue-100"
             onClick={() => setIsOpen(false)}

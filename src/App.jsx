@@ -18,6 +18,7 @@ import NotFoundPage from "./pages/NotFoundPage"
 import OwnerRegistration from "./pages/OwnerRegistration"
 import AboutUs from "./pages/AboutUs"
 import ContactUs from "./pages/ContactUs"
+import FlatUserRentSubmit from "./pages/FlatUserRentSubmit"
 const App = () => {
   return (
     <>
@@ -43,8 +44,10 @@ const App = () => {
           <Route path="owner-registration" element={<OwnerRegistration />} />
 
           <Route path="about-us" element={<AboutUs />} />
-        <Route path="contact-us" element={<ContactUs />} />
-          
+          <Route path="contact-us" element={<ContactUs />} />
+
+          <Route path="flat-user-rent-submit" element={<FlatUserRentSubmit />} />
+
         </Route>
       </Routes>
     </>

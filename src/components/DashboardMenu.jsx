@@ -118,6 +118,19 @@ const DashboardMenu = ({ isOpen }) => {
 
         <li>
           <NavLink
+            to="/flat-user-rent-submit/"
+            className={({ isActive }) =>
+              isActive
+                ? "w-full text-left px-4 py-2 bg-blue-100 text-blue-700 rounded-lg font-semibold block"
+                : "w-full text-left px-4 py-2 hover:bg-gray-100 rounded-lg block"
+            }
+          >
+            <i class="fa-solid fa-money-bill"/> Rent Payment
+          </NavLink>
+        </li>
+
+        <li>
+          <NavLink
             to="/logout/"
             className={({ isActive }) =>
               isActive
