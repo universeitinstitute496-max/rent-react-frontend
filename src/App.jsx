@@ -19,6 +19,9 @@ import OwnerRegistration from "./pages/OwnerRegistration"
 import AboutUs from "./pages/AboutUs"
 import ContactUs from "./pages/ContactUs"
 import FlatUserRentSubmit from "./pages/FlatUserRentSubmit"
+import HouseList from "./pages/HouseList"
+import FlatList from "./pages/FlatList"
+import FlatUserList from "./pages/FlatUserList"
 const App = () => {
   return (
     <>
@@ -47,6 +50,10 @@ const App = () => {
           <Route path="contact-us" element={<ContactUs />} />
 
           <Route path="flat-user-rent-submit" element={<FlatUserRentSubmit />} />
+          <Route path="house-list" element={<HouseList />} />
+
+          <Route path="flat-list" element={<FlatList />} />
+          <Route path="flat-user-list" element={<FlatUserList />} />
 
         </Route>
       </Routes>
