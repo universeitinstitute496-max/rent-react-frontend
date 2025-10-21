@@ -49,7 +49,7 @@ const RegisterComponent = () => {
     <div className="bg-gray-100 flex items-center justify-center min-h-screen px-3">
       <div className="bg-white shadow-xl rounded-lg p-8 w-full max-w-md">
         <div className="flex flex-col items-center mb-6">
-          <img src="#" alt="Logo" className="h-14 w-14 mb-2" />
+          <img src="https://i.ibb.co.com/8nPGVbZ4/house-Management.png" alt="Logo" className="h-14 w-14 mb-2" />
           <h1 className="text-xl font-bold text-gray-800">
             House Rent Management System
           </h1>
