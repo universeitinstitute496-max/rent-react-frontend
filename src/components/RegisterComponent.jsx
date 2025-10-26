@@ -1,4 +1,3 @@
-// RegisterComponent.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -13,7 +12,7 @@ const RegisterComponent = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    profile: "",
+    profileImage: null,
     firstName: "",
     lastName: "",
     email: "",
@@ -43,6 +42,14 @@ const RegisterComponent = () => {
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setFormData((prev) => ({ ...prev, profileImage: imageUrl }));
+    }
+  };
+
   const addBank = (e) => {
     e.preventDefault();
     if (!bankInput.bankName || !bankInput.branch || !bankInput.accNumber) return;
@@ -59,7 +66,6 @@ const RegisterComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
@@ -81,67 +87,105 @@ const RegisterComponent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center py-10 px-5">
-      <div className="bg-white w-full max-w-4xl p-8 rounded-2xl shadow-2xl border border-gray-200">
+    <div className="min-h-screen bg-gray-100 flex justify-center py-10 px-3">
+      <div className="bg-white w-full max-w-4xl p-8 rounded-2xl shadow-xl border">
 
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl font-bold text-gray-900 text-center">
           House Rent Management System
         </h1>
-        <p className="text-gray-600 text-sm mb-6">
-          Enter your information to create account
+        <p className="text-gray-600 text-sm text-center mb-6">
+          Create your account
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
 
           {/* PERSONAL INFO */}
           <section className="p-5 border rounded-xl bg-gray-50">
-            <h2 className="font-semibold text-gray-800 mb-4 text-lg">
+            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
               Personal Information
             </h2>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              
+            {/* Profile Picture */}
+            <div className="mb-6">
+  <label className="block text-sm font-semibold text-gray-700 mb-1">
+    Profile Picture
+  </label>
+
+  <div className="flex items-center gap-4">
+    {/* Upload Box */}
+    <label
+      htmlFor="profilePic"
+      className="cursor-pointer w-16 h-16 rounded-full border-2 border-dashed border-blue-400 flex items-center justify-center hover:border-blue-600 transition overflow-hidden bg-gray-50 hover:bg-gray-100"
+    >
+      {formData.profileImage ? (
+        <img
+          src={formData.profileImage}
+          className="w-full h-full object-cover"
+          alt="Profile"
+        />
+      ) : (
+        <span className="text-[10px] text-gray-500 text-center leading-none">
+          Upload
+        </span>
+      )}
+    </label>
+
+    {/* File Input Hidden */}
+    <input
+      id="profilePic"
+      type="file"
+      accept="image/*"
+      onChange={handleImageUpload}
+      className="hidden"
+    />
+
+    {/* Preview Text */}
+    <p className="text-[12px] text-gray-600">JPG / PNG, Max 2MB</p>
+  </div>
+</div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
               {[
-                { name: "profile", label: "Profile Name" },
                 { name: "firstName", label: "First Name" },
                 { name: "lastName", label: "Last Name" },
                 { name: "email", label: "Email", type: "email" },
                 { name: "phone", label: "Phone", type: "tel" },
                 { name: "nid", label: "NID Number" },
-              ].map((item) => (
-                <div key={item.name}>
-                  <label className="text-sm text-gray-600">{item.label}</label>
+              ].map((field) => (
+                <div key={field.name}>
+                  <label className="text-xs text-gray-600">{field.label}</label>
                   <input
-                    name={item.name}
-                    type={item.type || "text"}
-                    value={formData[item.name]}
+                    name={field.name}
+                    type={field.type || "text"}
+                    value={formData[field.name]}
                     onChange={handleChange}
-                    className="border rounded-md px-3 py-2 w-full mt-1 focus:ring focus:ring-blue-200"
+                    className="border rounded-md px-3 py-2 w-full focus:ring focus:ring-blue-200"
                     required
                   />
                 </div>
               ))}
 
               <div>
-                <label className="text-sm text-gray-600">Password</label>
+                <label className="text-xs text-gray-600">Password</label>
                 <input
                   type="password"
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className="border rounded-md px-3 py-2 w-full mt-1 focus:ring focus:ring-blue-200"
+                  className="border rounded-md px-3 py-2 w-full focus:ring focus:ring-blue-200"
                   required
                 />
               </div>
 
               <div>
-                <label className="text-sm text-gray-600">Confirm Password</label>
+                <label className="text-xs text-gray-600">Confirm Password</label>
                 <input
                   type="password"
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="border rounded-md px-3 py-2 w-full mt-1 focus:ring focus:ring-blue-200"
+                  className="border rounded-md px-3 py-2 w-full focus:ring focus:ring-blue-200"
                   required
                 />
               </div>
@@ -150,33 +194,52 @@ const RegisterComponent = () => {
 
           {/* BANK INFO */}
           <section className="p-5 border rounded-xl bg-white">
-            <h2 className="font-semibold text-gray-800 mb-4 text-lg">
+            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
               Bank Information
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              {[
-                { label: "Bank Name", name: "bankName" },
-                { label: "Branch", name: "branch" },
-                { label: "Account Number", name: "accNumber" },
-              ].map((item) => (
-                <input
-                  key={item.name}
-                  placeholder={item.label}
-                  className="border rounded-md px-3 py-2"
-                  value={bankInput[item.name]}
-                  onChange={(e)=>setBankInput({...bankInput,[item.name]:e.target.value})}
-                />
-              ))}
+              <input
+                placeholder="Bank Name"
+                className="border rounded-md px-3 py-2"
+                value={bankInput.bankName}
+                onChange={(e) =>
+                  setBankInput({ ...bankInput, bankName: e.target.value })
+                }
+              />
+              <input
+                placeholder="Branch"
+                className="border rounded-md px-3 py-2"
+                value={bankInput.branch}
+                onChange={(e) =>
+                  setBankInput({ ...bankInput, branch: e.target.value })
+                }
+              />
+              <input
+                placeholder="Account Number"
+                className="border rounded-md px-3 py-2"
+                value={bankInput.accNumber}
+                onChange={(e) =>
+                  setBankInput({ ...bankInput, accNumber: e.target.value })
+                }
+              />
             </div>
 
-            <button onClick={addBank} className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+            <button
+              onClick={addBank}
+              className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+            >
               ➕ Add Bank
             </button>
 
-            {bankList.map((b)=>(
-              <div key={b.id} className="mt-3 p-3 rounded-md bg-blue-50 border border-blue-200">
-                <p className="font-semibold text-blue-700">{b.bankName} - {b.branch}</p>
+            {bankList.map((b) => (
+              <div
+                key={b.id}
+                className="mt-2 p-3 rounded-md bg-blue-50 border border-blue-200"
+              >
+                <p className="font-semibold text-blue-700">
+                  {b.bankName} - {b.branch}
+                </p>
                 <p className="text-sm">A/C: {b.accNumber}</p>
               </div>
             ))}
@@ -184,7 +247,7 @@ const RegisterComponent = () => {
 
           {/* PAYMENT INFO */}
           <section className="p-5 border rounded-xl bg-white">
-            <h2 className="font-semibold text-gray-800 mb-4 text-lg">
+            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
               Online Payment Information
             </h2>
 
@@ -192,9 +255,11 @@ const RegisterComponent = () => {
               <select
                 className="border rounded-md px-3 py-2"
                 value={paymentInput.gatewayType}
-                onChange={(e)=>setPaymentInput({...paymentInput,gatewayType:e.target.value})}
+                onChange={(e) =>
+                  setPaymentInput({ ...paymentInput, gatewayType: e.target.value })
+                }
               >
-                <option value="">Select Gateway</option>
+                <option value="">Payment Gateway</option>
                 <option value="Bkash">Bkash</option>
                 <option value="Nagad">Nagad</option>
                 <option value="Rocket">Rocket</option>
@@ -203,7 +268,9 @@ const RegisterComponent = () => {
               <select
                 className="border rounded-md px-3 py-2"
                 value={paymentInput.accountType}
-                onChange={(e)=>setPaymentInput({...paymentInput,accountType:e.target.value})}
+                onChange={(e) =>
+                  setPaymentInput({ ...paymentInput, accountType: e.target.value })
+                }
               >
                 <option value="">Account Type</option>
                 <option value="Personal">Personal</option>
@@ -214,17 +281,30 @@ const RegisterComponent = () => {
                 placeholder="Payment Number"
                 className="border rounded-md px-3 py-2"
                 value={paymentInput.paymentNumber}
-                onChange={(e)=>setPaymentInput({...paymentInput,paymentNumber:e.target.value})}
+                onChange={(e) =>
+                  setPaymentInput({
+                    ...paymentInput,
+                    paymentNumber: e.target.value,
+                  })
+                }
               />
             </div>
 
-            <button onClick={addPayment} className="mt-3 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700 transition">
-              ➕ Add Payment
+            <button
+              onClick={addPayment}
+              className="mt-3 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+            >
+              ➕ Add Payment Info
             </button>
 
-            {paymentList.map((p)=>(
-              <div key={p.id} className="mt-3 p-3 rounded-md bg-green-50 border border-green-200">
-                <p className="font-semibold text-green-700">{p.gatewayType} - {p.accountType}</p>
+            {paymentList.map((p) => (
+              <div
+                key={p.id}
+                className="mt-2 p-3 rounded-md bg-green-50 border border-green-200"
+              >
+                <p className="font-semibold text-green-700">
+                  {p.gatewayType} - {p.accountType}
+                </p>
                 <p className="text-sm">Number: {p.paymentNumber}</p>
               </div>
             ))}
@@ -232,19 +312,21 @@ const RegisterComponent = () => {
 
           {/* SUBSCRIPTION */}
           <section className="p-5 border rounded-xl bg-gray-50">
-            <h2 className="font-semibold text-gray-800 mb-4 text-lg">
+            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
               Subscription Package (Optional)
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-              {subscriptionOptions.map((opt)=>(
+              {subscriptionOptions.map((opt) => (
                 <div
                   key={opt.id}
-                  onClick={()=>setSelectedSubscription(opt.id)}
+                  onClick={() => setSelectedSubscription(opt.id)}
                   className={`cursor-pointer p-4 border rounded-lg text-center transition 
-                    ${selectedSubscription === opt.id 
-                      ? "border-green-600 bg-green-100" 
-                      : "hover:bg-gray-200"}`}
+                    ${
+                      selectedSubscription === opt.id
+                        ? "border-green-600 bg-green-100"
+                        : "hover:bg-gray-200"
+                    }`}
                 >
                   <p className="font-semibold">{opt.title}</p>
                   <p className="text-sm text-gray-600">
@@ -256,20 +338,22 @@ const RegisterComponent = () => {
           </section>
 
           {/* SUBMIT */}
-          <div className="flex justify-between items-center">
+          <div className="flex justify-end items-center gap-4">
             <Link to="/login" className="text-blue-600 hover:underline">
               Already have an account?
             </Link>
 
-            <button type="submit" className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition">
+            <button
+              type="submit"
+              className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700"
+            >
               ✅ Register
             </button>
           </div>
-
         </form>
 
         {submitted && (
-          <p className="text-center text-green-600 mt-4">
+          <p className="text-center text-green-600 font-semibold mt-4">
             ✅ Registration Completed Successfully!
           </p>
         )}
