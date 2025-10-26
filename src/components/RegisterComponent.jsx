@@ -11,6 +11,8 @@ const subscriptionOptions = [
 const RegisterComponent = () => {
   const navigate = useNavigate();
 
+  const [step, setStep] = useState(1);
+
   const [formData, setFormData] = useState({
     profileImage: null,
     firstName: "",
@@ -39,6 +41,7 @@ const RegisterComponent = () => {
   const [selectedSubscription, setSelectedSubscription] = useState("none");
   const [submitted, setSubmitted] = useState(false);
 
+  // Handlers
   const handleChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -64,12 +67,20 @@ const RegisterComponent = () => {
     setPaymentInput({ gatewayType: "", accountType: "", paymentNumber: "" });
   };
 
-  const handleSubmit = (e) => {
+  // Register personal info & go to step 2
+  const handlePersonalRegister = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
+    // You can save personal info to server here if needed
+    setStep(2);
+  };
+
+  // Final submit registration
+  const handleFinalSubmit = (e) => {
+    e.preventDefault();
 
     const payload = {
       personalInfo: formData,
@@ -94,58 +105,47 @@ const RegisterComponent = () => {
           House Rent Management System
         </h1>
         <p className="text-gray-600 text-sm text-center mb-6">
-          Create your account
+          {step === 1 ? "Step 1: Personal Information" : "Step 2: Financial Information & Subscription"}
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-
-          {/* PERSONAL INFO */}
-          <section className="p-5 border rounded-xl bg-gray-50">
-            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
-              Personal Information
-            </h2>
-
+        {/* STEP 1: Personal Info */}
+        {step === 1 && (
+          <form onSubmit={handlePersonalRegister} className="space-y-6">
             {/* Profile Picture */}
             <div className="mb-6">
-  <label className="block text-sm font-semibold text-gray-700 mb-1">
-    Profile Picture
-  </label>
+              <label className="block text-sm font-semibold text-gray-700 mb-1">
+                Profile Picture
+              </label>
+              <div className="flex items-center gap-4">
+                <label
+                  htmlFor="profilePic"
+                  className="cursor-pointer w-16 h-16 rounded-full border-2 border-dashed border-blue-400 flex items-center justify-center hover:border-blue-600 transition overflow-hidden bg-gray-50 hover:bg-gray-100"
+                >
+                  {formData.profileImage ? (
+                    <img
+                      src={formData.profileImage}
+                      className="w-full h-full object-cover"
+                      alt="Profile"
+                    />
+                  ) : (
+                    <span className="text-[10px] text-gray-500 text-center leading-none">
+                      Upload
+                    </span>
+                  )}
+                </label>
+                <input
+                  id="profilePic"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                  className="hidden"
+                />
+                <p className="text-[12px] text-gray-600">JPG / PNG, Max 2MB</p>
+              </div>
+            </div>
 
-  <div className="flex items-center gap-4">
-    {/* Upload Box */}
-    <label
-      htmlFor="profilePic"
-      className="cursor-pointer w-16 h-16 rounded-full border-2 border-dashed border-blue-400 flex items-center justify-center hover:border-blue-600 transition overflow-hidden bg-gray-50 hover:bg-gray-100"
-    >
-      {formData.profileImage ? (
-        <img
-          src={formData.profileImage}
-          className="w-full h-full object-cover"
-          alt="Profile"
-        />
-      ) : (
-        <span className="text-[10px] text-gray-500 text-center leading-none">
-          Upload
-        </span>
-      )}
-    </label>
-
-    {/* File Input Hidden */}
-    <input
-      id="profilePic"
-      type="file"
-      accept="image/*"
-      onChange={handleImageUpload}
-      className="hidden"
-    />
-
-    {/* Preview Text */}
-    <p className="text-[12px] text-gray-600">JPG / PNG, Max 2MB</p>
-  </div>
-</div>
-
+            {/* Input Fields */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-
               {[
                 { name: "firstName", label: "First Name" },
                 { name: "lastName", label: "Last Name" },
@@ -190,167 +190,186 @@ const RegisterComponent = () => {
                 />
               </div>
             </div>
-          </section>
 
-          {/* BANK INFO */}
-          <section className="p-5 border rounded-xl bg-white">
-            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
-              Bank Information
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <input
-                placeholder="Bank Name"
-                className="border rounded-md px-3 py-2"
-                value={bankInput.bankName}
-                onChange={(e) =>
-                  setBankInput({ ...bankInput, bankName: e.target.value })
-                }
-              />
-              <input
-                placeholder="Branch"
-                className="border rounded-md px-3 py-2"
-                value={bankInput.branch}
-                onChange={(e) =>
-                  setBankInput({ ...bankInput, branch: e.target.value })
-                }
-              />
-              <input
-                placeholder="Account Number"
-                className="border rounded-md px-3 py-2"
-                value={bankInput.accNumber}
-                onChange={(e) =>
-                  setBankInput({ ...bankInput, accNumber: e.target.value })
-                }
-              />
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700"
+              >
+                ✅ Register
+              </button>
             </div>
+          </form>
+        )}
 
-            <button
-              onClick={addBank}
-              className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
-            >
-              ➕ Add Bank
-            </button>
-
-            {bankList.map((b) => (
-              <div
-                key={b.id}
-                className="mt-2 p-3 rounded-md bg-blue-50 border border-blue-200"
-              >
-                <p className="font-semibold text-blue-700">
-                  {b.bankName} - {b.branch}
-                </p>
-                <p className="text-sm">A/C: {b.accNumber}</p>
+        {/* STEP 2: Bank + Payment + Subscription */}
+        {step === 2 && (
+          <form onSubmit={handleFinalSubmit} className="space-y-6">
+            {/* BANK INFO */}
+            <section className="p-5 border rounded-xl bg-white">
+              <h2 className="font-semibold text-gray-800 mb-3 text-lg">
+                Bank Information
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <input
+                  placeholder="Bank Name"
+                  className="border rounded-md px-3 py-2"
+                  value={bankInput.bankName}
+                  onChange={(e) =>
+                    setBankInput({ ...bankInput, bankName: e.target.value })
+                  }
+                  required
+                />
+                <input
+                  placeholder="Branch"
+                  className="border rounded-md px-3 py-2"
+                  value={bankInput.branch}
+                  onChange={(e) =>
+                    setBankInput({ ...bankInput, branch: e.target.value })
+                  }
+                  required
+                />
+                <input
+                  placeholder="Account Number"
+                  className="border rounded-md px-3 py-2"
+                  value={bankInput.accNumber}
+                  onChange={(e) =>
+                    setBankInput({ ...bankInput, accNumber: e.target.value })
+                  }
+                  required
+                />
               </div>
-            ))}
-          </section>
-
-          {/* PAYMENT INFO */}
-          <section className="p-5 border rounded-xl bg-white">
-            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
-              Online Payment Information
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <select
-                className="border rounded-md px-3 py-2"
-                value={paymentInput.gatewayType}
-                onChange={(e) =>
-                  setPaymentInput({ ...paymentInput, gatewayType: e.target.value })
-                }
+              <button
+                onClick={addBank}
+                type="button"
+                className="mt-3 bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
               >
-                <option value="">Payment Gateway</option>
-                <option value="Bkash">Bkash</option>
-                <option value="Nagad">Nagad</option>
-                <option value="Rocket">Rocket</option>
-              </select>
+                ➕ Add Bank
+              </button>
 
-              <select
-                className="border rounded-md px-3 py-2"
-                value={paymentInput.accountType}
-                onChange={(e) =>
-                  setPaymentInput({ ...paymentInput, accountType: e.target.value })
-                }
-              >
-                <option value="">Account Type</option>
-                <option value="Personal">Personal</option>
-                <option value="Merchant">Merchant</option>
-              </select>
-
-              <input
-                placeholder="Payment Number"
-                className="border rounded-md px-3 py-2"
-                value={paymentInput.paymentNumber}
-                onChange={(e) =>
-                  setPaymentInput({
-                    ...paymentInput,
-                    paymentNumber: e.target.value,
-                  })
-                }
-              />
-            </div>
-
-            <button
-              onClick={addPayment}
-              className="mt-3 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
-            >
-              ➕ Add Payment Info
-            </button>
-
-            {paymentList.map((p) => (
-              <div
-                key={p.id}
-                className="mt-2 p-3 rounded-md bg-green-50 border border-green-200"
-              >
-                <p className="font-semibold text-green-700">
-                  {p.gatewayType} - {p.accountType}
-                </p>
-                <p className="text-sm">Number: {p.paymentNumber}</p>
-              </div>
-            ))}
-          </section>
-
-          {/* SUBSCRIPTION */}
-          <section className="p-5 border rounded-xl bg-gray-50">
-            <h2 className="font-semibold text-gray-800 mb-3 text-lg">
-              Subscription Package (Optional)
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-              {subscriptionOptions.map((opt) => (
+              {bankList.map((b) => (
                 <div
-                  key={opt.id}
-                  onClick={() => setSelectedSubscription(opt.id)}
-                  className={`cursor-pointer p-4 border rounded-lg text-center transition 
+                  key={b.id}
+                  className="mt-2 p-3 rounded-md bg-blue-50 border border-blue-200"
+                >
+                  <p className="font-semibold text-blue-700">
+                    {b.bankName} - {b.branch}
+                  </p>
+                  <p className="text-sm">A/C: {b.accNumber}</p>
+                </div>
+              ))}
+            </section>
+
+            {/* PAYMENT INFO */}
+            <section className="p-5 border rounded-xl bg-white">
+              <h2 className="font-semibold text-gray-800 mb-3 text-lg">
+                Online Payment Information
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <select
+                  className="border rounded-md px-3 py-2"
+                  value={paymentInput.gatewayType}
+                  onChange={(e) =>
+                    setPaymentInput({ ...paymentInput, gatewayType: e.target.value })
+                  }
+                  required
+                >
+                  <option value="">Payment Gateway</option>
+                  <option value="Bkash">Bkash</option>
+                  <option value="Nagad">Nagad</option>
+                  <option value="Rocket">Rocket</option>
+                </select>
+
+                <select
+                  className="border rounded-md px-3 py-2"
+                  value={paymentInput.accountType}
+                  onChange={(e) =>
+                    setPaymentInput({ ...paymentInput, accountType: e.target.value })
+                  }
+                  required
+                >
+                  <option value="">Account Type</option>
+                  <option value="Personal">Personal</option>
+                  <option value="Merchant">Merchant</option>
+                </select>
+
+                <input
+                  placeholder="Payment Number"
+                  className="border rounded-md px-3 py-2"
+                  value={paymentInput.paymentNumber}
+                  onChange={(e) =>
+                    setPaymentInput({
+                      ...paymentInput,
+                      paymentNumber: e.target.value,
+                    })
+                  }
+                  required
+                />
+              </div>
+
+              <button
+                onClick={addPayment}
+                type="button"
+                className="mt-3 bg-green-600 text-white px-4 py-2 rounded-md hover:bg-green-700"
+              >
+                ➕ Add Payment Info
+              </button>
+
+              {paymentList.map((p) => (
+                <div
+                  key={p.id}
+                  className="mt-2 p-3 rounded-md bg-green-50 border border-green-200"
+                >
+                  <p className="font-semibold text-green-700">
+                    {p.gatewayType} - {p.accountType}
+                  </p>
+                  <p className="text-sm">Number: {p.paymentNumber}</p>
+                </div>
+              ))}
+            </section>
+
+            {/* SUBSCRIPTION */}
+            <section className="p-5 border rounded-xl bg-gray-50">
+              <h2 className="font-semibold text-gray-800 mb-3 text-lg">
+                Subscription Package (Optional)
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                {subscriptionOptions.map((opt) => (
+                  <div
+                    key={opt.id}
+                    onClick={() => setSelectedSubscription(opt.id)}
+                    className={`cursor-pointer p-4 border rounded-lg text-center transition 
                     ${
                       selectedSubscription === opt.id
                         ? "border-green-600 bg-green-100"
                         : "hover:bg-gray-200"
                     }`}
-                >
-                  <p className="font-semibold">{opt.title}</p>
-                  <p className="text-sm text-gray-600">
-                    {opt.price} BDT / month
-                  </p>
-                </div>
-              ))}
+                  >
+                    <p className="font-semibold">{opt.title}</p>
+                    <p className="text-sm text-gray-600">{opt.price} BDT / month</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-between">
+              <button
+                type="button"
+                onClick={() => setStep(1)}
+                className="px-4 py-2 border rounded-lg"
+              >
+                ⬅ Back
+              </button>
+              <button
+                type="submit"
+                className="bg-green-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-green-700"
+              >
+                ✅ Final Submit
+              </button>
             </div>
-          </section>
-
-          {/* SUBMIT */}
-          <div className="flex justify-end items-center gap-4">
-            <Link to="/login" className="text-blue-600 hover:underline">
-              Already have an account?
-            </Link>
-
-            <button
-              type="submit"
-              className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700"
-            >
-              ✅ Register
-            </button>
-          </div>
-        </form>
+          </form>
+        )}
 
         {submitted && (
           <p className="text-center text-green-600 font-semibold mt-4">
